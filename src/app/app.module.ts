@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavComponent } from './nav/nav.component';
 import { ValueComponent } from './value/value.component';
 
 
@@ -11,6 +12,7 @@ import { ValueComponent } from './value/value.component';
   declarations: [
     AppComponent,
     ValueComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,
