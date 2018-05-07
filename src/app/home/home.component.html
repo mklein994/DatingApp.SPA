@@ -9,6 +9,6 @@
 
 <div *ngIf="registerMode" class="container">
   <div class="col-md-4 offset-md-4">
-    <app-register [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-register>
+    <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
   </div>
 </div>
