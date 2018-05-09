@@ -10,6 +10,7 @@
     "test": "ng test",
     "test:ci": "ng test --single-run true --progress false --browsers ChromeHeadlessNoSandbox,FirefoxHeadless",
     "lint": "ng lint --format stylish --force true",
+    "lint:fix": "ng lint --format stylish --force true --fix",
     "lint:ci": "ng lint --type-check true",
     "e2e": "ng e2e"
   },
