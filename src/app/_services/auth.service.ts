@@ -43,7 +43,7 @@ export class AuthService {
 
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred: ' + error.error.message);
-    } else if (typeof error.error === 'object') {
+    } else if (typeof error.error !== 'string') {
       modelStateErrors = '';
       for (const key in error.error) {
         if (error.error[key]) {
