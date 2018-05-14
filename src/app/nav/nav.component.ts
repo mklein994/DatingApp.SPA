@@ -12,7 +12,7 @@ export class NavComponent implements OnInit {
 
   model: any = {};
 
-  constructor(private authService: AuthService, private alerify: AlertifyService) { }
+  constructor(protected authService: AuthService, private alerify: AlertifyService) { }
 
   ngOnInit() {
   }
@@ -31,8 +31,7 @@ export class NavComponent implements OnInit {
   }
 
   loggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token;
+    return this.authService.loggedIn();
   }
 
 }

@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -11,6 +12,8 @@ export class AuthService {
 
   baseUrl = 'http://localhost:5000/api/auth/';
   userToken: any;
+  decodedToken: any;
+  jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +25,8 @@ export class AuthService {
       const user = response.body;
       if (user) {
         localStorage.setItem('token', user.tokenString);
+        this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
+        console.log(this.decodedToken);
         this.userToken = user.tokenString;
       }
     }).catch(this.handleError);
@@ -32,6 +37,10 @@ export class AuthService {
       headers: this.requestHeaders(),
       observe: 'response',
     }).catch(this.handleError);
+  }
+
+  loggedIn() {
+    return tokenNotExpired('token');
   }
 
   private requestHeaders() {
