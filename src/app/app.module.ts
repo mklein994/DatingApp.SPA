@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BsDropdownModule } from 'ngx-bootstrap';
 
+import { AuthGuard } from './_guards/auth.guard';
 import { AlertifyService } from './_services/alertify.service';
 import { AuthService } from './_services/auth.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,6 +37,7 @@ import { RegisterComponent } from './register/register.component';
   providers: [
     AuthService,
     AlertifyService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
 })
