@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ListsComponent } from './lists/lists.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { NavComponent } from './nav/nav.component';
@@ -27,6 +28,7 @@ import { RegisterComponent } from './register/register.component';
     MemberListComponent,
     ListsComponent,
     MessagesComponent,
+    MemberCardComponent,
   ],
   imports: [
     BrowserModule,
