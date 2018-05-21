@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { JwtModule } from '@auth0/angular-jwt';
 import { BsDropdownModule } from 'ngx-bootstrap';
 
 import { environment } from '../environments/environment';
@@ -35,6 +36,13 @@ import { RegisterComponent } from './register/register.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('token'),
+        whitelistedDomains: [environment.apiDomain],
+        blacklistedRoutes: [`${environment.apiUrl}/auth/`],
+      },
+    }),
     AppRoutingModule,
     FormsModule,
     BsDropdownModule.forRoot(),

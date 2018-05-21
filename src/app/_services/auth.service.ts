@@ -1,7 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -15,9 +14,8 @@ export class AuthService {
   baseUrl = environment.apiUrl + '/auth/';
   userToken: any;
   decodedToken: any;
-  jwtHelper: JwtHelper = new JwtHelper();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
   login(model: any) {
     return this.http.post<any>(this.baseUrl + 'login', model, {
@@ -42,7 +40,7 @@ export class AuthService {
   }
 
   loggedIn() {
-    return tokenNotExpired('token');
+    return !this.jwtHelper.isTokenExpired();
   }
 
   private requestHeaders() {
