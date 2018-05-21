@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment.prod';
 @Injectable()
 export class AuthService {
 
-  baseUrl = environment.apiUrl + '/auth/';
+  baseUrl = environment.apiUrl + 'auth/';
   userToken: any;
   decodedToken: any;
 

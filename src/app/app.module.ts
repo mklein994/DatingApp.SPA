@@ -40,7 +40,7 @@ import { RegisterComponent } from './register/register.component';
       config: {
         tokenGetter: () => localStorage.getItem('token'),
         whitelistedDomains: [environment.apiDomain],
-        blacklistedRoutes: [`${environment.apiUrl}/auth/`],
+        blacklistedRoutes: [`${environment.apiUrl}auth/`],
       },
     }),
     AppRoutingModule,
