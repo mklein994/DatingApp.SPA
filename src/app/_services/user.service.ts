@@ -19,6 +19,7 @@ export class UserService {
       .catch(this.handleError);
   }
 
+  // TODO: for some reason, this method is still required.
   private jwt() {
     const token = localStorage.getItem('token');
     if (token) {
