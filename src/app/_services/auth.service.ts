@@ -7,10 +7,12 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
+import { environment } from '../../environments/environment.prod';
+
 @Injectable()
 export class AuthService {
 
-  baseUrl = 'http://localhost:5000/api/auth/';
+  baseUrl = environment.apiUrl + '/auth/';
   userToken: any;
   decodedToken: any;
   jwtHelper: JwtHelper = new JwtHelper();

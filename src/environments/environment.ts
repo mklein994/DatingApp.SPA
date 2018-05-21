@@ -3,7 +3,10 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
+const apiDomain = 'http://localhost:5000';
+
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5000/api/',
+  apiDomain: apiDomain,
+  apiUrl: apiDomain + '/api/',
 };

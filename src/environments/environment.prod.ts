@@ -1,4 +1,7 @@
+const apiDomain = 'http://localhost:5000';
+
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:5000/api/',
+  apiDomain: apiDomain,
+  apiUrl: apiDomain + '/api/',
 };
