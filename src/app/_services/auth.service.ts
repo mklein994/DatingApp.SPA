@@ -21,7 +21,7 @@ export class AuthService {
     return this.http.post<any>(this.baseUrl + 'login', model, {
       headers: this.requestHeaders(),
       observe: 'response',
-    }).map(response => {
+    }).map((response: any) => {
       const user = response.body;
       if (user) {
         localStorage.setItem('token', user.tokenString);
