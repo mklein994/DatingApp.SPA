@@ -1,5 +1,5 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -12,29 +12,21 @@ import { User } from '../_models/user';
 export class UserService {
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private authHttp: AuthHttp) { }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl + 'users')// , this.jwt())
+    return this.authHttp.get(this.baseUrl + 'users')
+      .map(response => <User[]>response.json())
       .catch(this.handleError);
   }
 
   getUser(): Observable<User> {
-    return this.http.get<User>(this.baseUrl + 'user')// , this.jwt())
+    return this.authHttp.get(this.baseUrl + 'user')
+      .map(response => <User>response.json())
       .catch(this.handleError);
   }
 
-  // TODO: for some reason, this method is still required.
-  private jwt() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token });
-      headers.append('Content-Type', 'application/json');
-      return { headers: headers };
-    }
-  }
-
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: any) {
     let modelStateErrors;
 
     if (error.error instanceof ErrorEvent) {

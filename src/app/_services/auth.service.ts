@@ -1,12 +1,12 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -14,41 +14,42 @@ export class AuthService {
   baseUrl = environment.apiUrl + 'auth/';
   userToken: any;
   decodedToken: any;
+  jwtHelper: JwtHelper = new JwtHelper();
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
+  constructor(private http: Http) { }
 
   login(model: any) {
-    return this.http.post<any>(this.baseUrl + 'login', model, {
-      headers: this.requestHeaders(),
-      observe: 'response',
-    }).map((response: any) => {
-      const user = response.body;
-      if (user) {
-        localStorage.setItem('token', user.tokenString);
-        this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
-        console.log(this.decodedToken);
-        this.userToken = user.tokenString;
-      }
-    }).catch(this.handleError);
+    return this.http
+      .post(this.baseUrl + 'login', model, this.requestOptions())
+      .map((response: Response) => {
+        const user = response.json();
+        if (user && user.tokenString) {
+          localStorage.setItem('token', user.tokenString);
+          this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
+          console.log(this.decodedToken);
+          this.userToken = user.tokenString;
+        }
+      }).catch(this.handleError);
   }
 
   register(model: any) {
-    return this.http.post<any>(this.baseUrl + 'register', model, {
-      headers: this.requestHeaders(),
-      observe: 'response',
-    }).catch(this.handleError);
+    return this.http
+      .post(this.baseUrl + 'register', model, this.requestOptions())
+      .catch(this.handleError);
   }
 
   loggedIn() {
-    return !this.jwtHelper.isTokenExpired();
+    return tokenNotExpired('token');
   }
 
-  private requestHeaders() {
-    return new HttpHeaders({ 'Content-Type': 'application/json' });
+  private requestOptions() {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    return new RequestOptions({ headers: headers });
   }
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: any) {
     let modelStateErrors;
+    console.warn(error);
 
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred: ' + error.error.message);
