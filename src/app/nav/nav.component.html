@@ -41,7 +41,7 @@
     </form>
 
     <ul *ngIf="loggedIn()" class="navbar-nav">
-      <li><img src="{{authService.currentUser.photoUrl}}" alt=""></li>
+      <li><img src="{{photoUrl}}" alt=""></li>
       <li class="nav-item dropdown" dropdown>
         <a class="nav-link dropdown-toggle" (click)="false" dropdownToggle>Welcome {{ authService.decodedToken?.unique_name | titlecase }}</a>
         <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
