@@ -31,6 +31,12 @@ export class UserService {
       .catch(this.handleError);
   }
 
+  setMainPhoto(userId: number, id: number) {
+    return this.authHttp
+      .post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setmain', {})
+      .catch(this.handleError);
+  }
+
   private handleError(error: any) {
     let modelStateErrors;
 
