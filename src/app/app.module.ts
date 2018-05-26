@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -47,6 +47,7 @@ import { RegisterComponent } from './register/register.component';
     HttpModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AuthModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
