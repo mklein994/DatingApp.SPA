@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 
 
 import { AuthGuard } from './_guards/auth.guard';
@@ -40,6 +40,7 @@ import { RegisterComponent } from './register/register.component';
     FormsModule,
     AuthModule,
     BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
   ],
   providers: [
     AuthService,
