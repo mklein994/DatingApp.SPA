@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { JwtModule } from '@auth0/angular-jwt';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { BsDropdownModule } from 'ngx-bootstrap';
 
 import { environment } from '../environments/environment';
@@ -21,6 +21,17 @@ import { MessagesComponent } from './messages/messages.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
 
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
+
+export function jwtOptionsFactory(authService: AuthService) {
+  return {
+    tokenGetter: () => {
+      return authService.userToken;
+    },
+  };
+}
 
 @NgModule({
   declarations: [
@@ -37,11 +48,18 @@ import { RegisterComponent } from './register/register.component';
     BrowserModule,
     HttpClientModule,
     JwtModule.forRoot({
-      config: {
-        tokenGetter: () => localStorage.getItem('token'),
-        whitelistedDomains: [environment.apiDomain],
-        blacklistedRoutes: [`${environment.apiUrl}auth/`],
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps: [AuthService],
       },
+      /*
+      config: {
+        tokenGetter: () => tokenGetter(),
+        whitelistedDomains: [environment.apiDomain],
+        blacklistedRoutes: [environment.apiUrl + 'auth/'],
+      },
+      */
     }),
     AppRoutingModule,
     FormsModule,

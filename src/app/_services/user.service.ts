@@ -15,7 +15,12 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl + 'users', this.jwt())
+    return this.http.get<User[]>(this.baseUrl + 'users')// , this.jwt())
+      .catch(this.handleError);
+  }
+
+  getUser(): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'user')// , this.jwt())
       .catch(this.handleError);
   }
 
@@ -47,6 +52,7 @@ export class UserService {
         `body was: ${error.error}`);
     }
 
+    console.error(error);
     return Observable.throw(modelStateErrors || 'something bad happend, please try again later.');
   }
 }
