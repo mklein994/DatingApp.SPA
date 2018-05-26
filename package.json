@@ -4,15 +4,15 @@
   "license": "MIT",
   "scripts": {
     "ng": "npx ng",
-    "start": "ng serve",
-    "build": "ng build --prod",
-    "build:ci": "ng build --prod --progress false",
-    "test": "ng test",
-    "test:ci": "ng test --single-run true --progress false --browsers ChromeHeadlessNoSandbox,FirefoxHeadless",
-    "lint": "ng lint --format stylish --force true",
-    "lint:fix": "ng lint --format stylish --force true --fix",
-    "lint:ci": "ng lint --type-check true",
-    "e2e": "ng e2e"
+    "start": "npx ng serve",
+    "build": "npx ng build --prod",
+    "build:ci": "npx ng build --prod --progress false",
+    "test": "npx ng test",
+    "test:ci": "npx ng test --single-run true --progress false --browsers ChromeHeadlessNoSandbox,FirefoxHeadless",
+    "lint": "npx ng lint --format stylish --force true",
+    "lint:fix": "npx ng lint --format stylish --force true --fix",
+    "lint:ci": "npx ng lint --type-check true",
+    "e2e": "npx ng e2e"
   },
   "private": true,
   "dependencies": {
