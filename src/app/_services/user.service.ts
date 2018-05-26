@@ -20,8 +20,8 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  getUser(): Observable<User> {
-    return this.authHttp.get(this.baseUrl + 'user')
+  getUser(id: number): Observable<User> {
+    return this.authHttp.get(this.baseUrl + 'users/' + id)
       .map(response => <User>response.json())
       .catch(this.handleError);
   }
