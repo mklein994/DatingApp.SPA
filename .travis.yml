@@ -4,7 +4,8 @@ node_js:
   - "node"
 cache:
   directories:
-    - "node_modules"
+    - "~/.npm"
+    #- "node_modules"
 script:
   - npm run lint:ci
   - npm run build:ci
