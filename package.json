@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
+    "ng": "npx ng",
     "start": "ng serve",
     "build": "ng build --prod",
     "build:ci": "ng build --prod --progress false",
