@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import * as _ from 'underscore';
 
@@ -19,6 +20,7 @@ export class PhotoEditorComponent implements OnInit {
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   currentMain: Photo;
+  @Output() getMemberPhotoChange = new EventEmitter<string>();
 
   constructor(private authService: AuthService, private userService: UserService, private alertify: AlertifyService) { }
 
@@ -36,6 +38,7 @@ export class PhotoEditorComponent implements OnInit {
         this.currentMain = _.findWhere(this.photos, { isMain: true });
         this.currentMain.isMain = false;
         photo.isMain = true;
+        this.getMemberPhotoChange.emit(photo.url);
       },
       error => this.alertify.error(error),
     );
