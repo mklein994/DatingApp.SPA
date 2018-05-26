@@ -6,6 +6,8 @@ import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 
 
 import { AuthGuard } from './_guards/auth.guard';
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { AlertifyService } from './_services/alertify.service';
 import { AuthService } from './_services/auth.service';
 import { UserService } from './_services/user.service';
@@ -47,6 +49,8 @@ import { RegisterComponent } from './register/register.component';
     AlertifyService,
     AuthGuard,
     UserService,
+    MemberDetailResolver,
+    MemberListResolver,
   ],
   bootstrap: [AppComponent],
 })
