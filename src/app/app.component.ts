@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   title = 'app';
   jwtHelper: JwtHelper = new JwtHelper();
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     const token = localStorage.getItem('token');
@@ -25,7 +25,11 @@ export class AppComponent implements OnInit {
 
     if (user) {
       this.authService.currentUser = user;
-      this.authService.changeMemberPhoto(user.photoUrl);
+      if (this.authService.currentUser.photoUrl !== null) {
+        this.authService.changeMemberPhoto(user.photoUrl);
+      } else {
+        this.authService.changeMemberPhoto('../assets/user.png');
+      }
     }
   }
 }
