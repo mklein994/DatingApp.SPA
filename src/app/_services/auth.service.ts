@@ -43,9 +43,9 @@ export class AuthService {
       }).catch(this.handleError);
   }
 
-  register(model: any) {
+  register(user: User) {
     return this.http
-      .post(this.baseUrl + 'register', model, this.requestOptions())
+      .post(this.baseUrl + 'register', user, this.requestOptions())
       .catch(this.handleError);
   }
 
