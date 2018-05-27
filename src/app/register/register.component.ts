@@ -27,6 +27,11 @@ export class RegisterComponent implements OnInit {
 
   createRegisterForm() {
     this.registerForm = this.fb.group({
+      gender: ['male'],
+      knownAs: ['', Validators.required],
+      dateOfBirth: [null, Validators.required],
+      city: ['', Validators.required],
+      country: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', [
         Validators.required,
