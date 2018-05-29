@@ -6,14 +6,6 @@
 
 <div class="container">
   <div class="row">
-    <div *ngFor="let user of users" class="col-lg-2 col-md-3 col-sm-6">
-      <app-member-card [user]="user"></app-member-card>
-    </div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="row">
     <form class="form-inline" #form="ngForm" (ngSubmit)="loadUsers()" novalidate>
       <div class="form-group">
         <label for="minAge">Age From</label>
@@ -33,7 +25,24 @@
       </div>
       <button type="submit" class="btn btn-primary" style="margin-left: 10px">Apply Filters</button>
       <button type="button" style="margin-left: 10px" class="btn btn-info" (click)="resetFilters()">Reset Filter</button>
+      <div class="float-right">
+        <label style="margin-right: 10px">Order By: </label>
+        <div class="btn-group">
+          <label class="btn btn-primary" name="orderBy" [(ngModel)]="userParams.orderBy" (click)="loadUsers()" btnRadio="lastActive"
+            tabindex="0" role="button">Last Active</label>
+          <label class="btn btn-primary" name="orderBy" [(ngModel)]="userParams.orderBy" (click)="loadUsers()" btnRadio="created" tabindex="0"
+            role="button">Newest Members</label>
+        </div>
+      </div>
     </form>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div *ngFor="let user of users" class="col-lg-2 col-md-3 col-sm-6">
+      <app-member-card [user]="user"></app-member-card>
+    </div>
   </div>
 </div>
 

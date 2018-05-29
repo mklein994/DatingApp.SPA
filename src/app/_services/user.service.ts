@@ -27,7 +27,11 @@ export class UserService {
     console.log(queryString);
 
     if (userParams != null) {
-      queryString += 'minAge=' + userParams.minAge + '&maxAge=' + userParams.maxAge + '&gender=' + userParams.gender;
+      queryString +=
+        'minAge=' + userParams.minAge +
+        '&maxAge=' + userParams.maxAge +
+        '&gender=' + userParams.gender +
+        '&orderBy=' + userParams.orderBy;
     }
 
     return this.authHttp.get(this.baseUrl + 'users' + queryString)
