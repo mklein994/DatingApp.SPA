@@ -16,7 +16,7 @@ export class UserService {
 
   constructor(private authHttp: AuthHttp) { }
 
-  getUsers(page?: number, itemsPerPage?: number, userParams?: any) {
+  getUsers(page?: number, itemsPerPage?: number, userParams?: any, likesParam?: string) {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
     let queryString = '?';
 
@@ -24,7 +24,13 @@ export class UserService {
       queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage + '&';
     }
 
-    console.log(queryString);
+    if (likesParam === 'Likers') {
+      queryString += 'Likers=true&';
+    }
+
+    if (likesParam === 'Likees') {
+      queryString += 'Likees=true&';
+    }
 
     if (userParams != null) {
       queryString +=
