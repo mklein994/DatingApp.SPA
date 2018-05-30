@@ -30,6 +30,7 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { MessagesComponent } from './messages/messages.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { RegisterComponent } from './register/register.component';
     MemberEditResolver,
     PreventUnsavedChanges,
     ListsResolver,
+    MessagesResolver,
   ],
   bootstrap: [AppComponent],
 })
