@@ -83,7 +83,7 @@ export class UserService {
 
   getMessages(id: number, page?: number, itemsPerPage?: number, messageContainer?: string) {
     const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
-    let queryString = '?MessageContainer=' + messageContainer + '&';
+    let queryString = '?MessageContainer=' + messageContainer;
 
     if (page != null && itemsPerPage != null) {
       queryString += '&pageNumber=' + page + '&pageSize=' + itemsPerPage;
