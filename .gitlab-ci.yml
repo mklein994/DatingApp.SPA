@@ -3,7 +3,7 @@ image: node:latest
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - node_modules/
+    - "$HOME/.npm"
 
 stages:
   - build
@@ -12,6 +12,6 @@ stages:
 build_project:
   stage: build
   script:
-    - npm install
+    - npm ci
     - npm run lint:ci
     - npm run build:ci
