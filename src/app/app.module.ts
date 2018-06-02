@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { JwtModule } from '@auth0/angular-jwt';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -52,7 +51,6 @@ import { RegisterComponent } from './register/register.component';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
