@@ -46,7 +46,7 @@ export class AuthService {
             this.changeMemberPhoto('../../assets/user.png');
           }
         }
-      }).catch(this.handleError);
+      });
   }
 
   register(user: User) {
@@ -54,8 +54,7 @@ export class AuthService {
       .post(this.baseUrl + 'register', user, {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/json'),
-      })
-      .catch(this.handleError);
+      });
   }
 
   loggedIn() {
@@ -66,28 +65,6 @@ export class AuthService {
     }
 
     return !this.jwtHelperService.isTokenExpired(token);
-  }
-
-  private handleError(error: any) {
-    let modelStateErrors;
-    console.warn(error);
-
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred: ' + error.error.message);
-    } else if (typeof error.error !== 'string') {
-      modelStateErrors = '';
-      for (const key in error.error) {
-        if (error.error[key]) {
-          modelStateErrors += error.error[key] + '\n';
-        }
-      }
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-
-    return Observable.throw(modelStateErrors || 'something bad happend, please try again later.');
   }
 
 }
