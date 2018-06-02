@@ -34,6 +34,15 @@ import { MessagesComponent } from './messages/messages.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
 
+export function getAccessToken(): string {
+  return localStorage.getItem('token');
+}
+
+export const jwtConfig = {
+  tokenGetter: getAccessToken,
+  whitelistedDomains: ['localhost:5000'],
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,10 +73,7 @@ import { RegisterComponent } from './register/register.component';
     ButtonsModule.forRoot(),
     HttpClientModule,
     JwtModule.forRoot({
-      config: {
-        tokenGetter: () => localStorage.getItem('token'),
-        whitelistedDomains: ['localhost:5000'],
-      },
+      config: jwtConfig,
     }),
   ],
   providers: [
