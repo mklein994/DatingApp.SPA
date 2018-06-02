@@ -18,6 +18,7 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MessagesResolver } from './_resolvers/messages.resolver';
 import { AlertifyService } from './_services/alertify.service';
 import { AuthService } from './_services/auth.service';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { UserService } from './_services/user.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -80,6 +81,7 @@ import { RegisterComponent } from './register/register.component';
     PreventUnsavedChanges,
     ListsResolver,
     MessagesResolver,
+    ErrorInterceptorProvider,
   ],
   bootstrap: [AppComponent],
 })
