@@ -14,7 +14,7 @@ import { User } from '../_models/user';
 @Injectable()
 export class AuthService {
 
-  baseUrl = environment.apiUrl + 'auth/';
+  baseUrl = environment.apiUrl;
   userToken: any;
   decodedToken: any;
   currentUser: User;
@@ -29,7 +29,7 @@ export class AuthService {
 
   login(model: any) {
     return this.http
-      .post<AuthUser>(this.baseUrl + 'login', model, {
+      .post<AuthUser>(this.baseUrl + 'auth/login', model, {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/json'),
       })
@@ -51,7 +51,7 @@ export class AuthService {
 
   register(user: User) {
     return this.http
-      .post(this.baseUrl + 'register', user, {
+      .post(this.baseUrl + 'auth/register', user, {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/json'),
       });
