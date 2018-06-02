@@ -1,6 +1,6 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -15,36 +15,36 @@ import { User } from '../_models/user';
 export class UserService {
   baseUrl = environment.apiUrl;
 
-  constructor(private authHttp: AuthHttp) { }
+  constructor(private authHttp: HttpClient) { }
 
-  getUsers(page?: number, itemsPerPage?: number, userParams?: any, likesParam?: string) {
+  getUsers(page?: any, itemsPerPage?: any, userParams?: any, likesParam?: string) {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
-    let queryString = '?';
+    let params = new HttpParams();
 
     if (page != null && itemsPerPage != null) {
-      queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage + '&';
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
     }
 
     if (likesParam === 'Likers') {
-      queryString += 'Likers=true&';
+      params = params.append('Likers', 'true');
     }
 
     if (likesParam === 'Likees') {
-      queryString += 'Likees=true&';
+      params = params.append('Likees', 'true');
     }
 
     if (userParams != null) {
-      queryString +=
-        'minAge=' + userParams.minAge +
-        '&maxAge=' + userParams.maxAge +
-        '&gender=' + userParams.gender +
-        '&orderBy=' + userParams.orderBy;
+      params = params
+        .append('minAge', userParams.minAge)
+        .append('maxAge', userParams.maxAge)
+        .append('gender', userParams.gender)
+        .append('orderBy', userParams.orderBy);
     }
 
-    return this.authHttp.get(this.baseUrl + 'users' + queryString)
-      .map((response: Response) => {
-        paginatedResult.result = response.json();
-
+    return this.authHttp.get<User[]>(this.baseUrl + 'users', { observe: 'response', params })
+      .map(response => {
+        paginatedResult.result = response.body;
         if (response.headers.get('Pagination') !== null) {
           paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
         }
@@ -55,8 +55,8 @@ export class UserService {
   }
 
   getUser(id: number): Observable<User> {
-    return this.authHttp.get(this.baseUrl + 'users/' + id)
-      .map(response => <User>response.json())
+    return this.authHttp
+      .get(this.baseUrl + 'users/' + id)
       .catch(this.handleError);
   }
 
@@ -81,17 +81,20 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  getMessages(id: number, page?: number, itemsPerPage?: number, messageContainer?: string) {
+  getMessages(id: number, page?: any, itemsPerPage?: any, messageContainer?: any) {
     const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
-    let queryString = '?MessageContainer=' + messageContainer;
+    let params = new HttpParams();
+
+    params = params.append('MessageContainer', messageContainer);
 
     if (page != null && itemsPerPage != null) {
-      queryString += '&pageNumber=' + page + '&pageSize=' + itemsPerPage;
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
     }
 
-    return this.authHttp.get(this.baseUrl + 'users/' + id + '/messages' + queryString)
-      .map((response: Response) => {
-        paginatedResult.result = response.json();
+    return this.authHttp.get<Message[]>(this.baseUrl + 'users/' + id + '/messages', { observe: 'response', params })
+      .map(response => {
+        paginatedResult.result = response.body;
 
         if (response.headers.get('Pagination') != null) {
           paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
@@ -102,14 +105,14 @@ export class UserService {
   }
 
   getMessageThread(id: number, recipientId: number) {
-    return this.authHttp.get(this.baseUrl + 'users/' + id + '/messages/thread/' + recipientId)
-      .map((response: Response) => response.json())
+    return this.authHttp
+      .get(this.baseUrl + 'users/' + id + '/messages/thread/' + recipientId)
       .catch(this.handleError);
   }
 
   sendMessage(id: number, message: string) {
-    return this.authHttp.post(this.baseUrl + 'users/' + id + '/messages', message)
-      .map((response: Response) => response.json())
+    return this.authHttp
+      .post(this.baseUrl + 'users/' + id + '/messages', message)
       .catch(this.handleError);
   }
 
