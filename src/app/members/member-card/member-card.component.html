@@ -5,7 +5,7 @@
       <ul class="list-inline member-icons animate text-center">
         <li class="btn btn-primary list-inline-item" [routerLink]="['/members/', user.id]"><i class="fa fa-user"></i></li>
         <li class="btn btn-primary list-inline-item" (click)="sendLike(user.id)"><i class="fa fa-heart"></i></li>
-        <li class="btn btn-primary list-inline-item"><i class="fa fa-envelope"></i></li>
+        <li class="btn btn-primary list-inline-item" [routerLink]="['/members/', user.id]" [queryParams]="{tab: '3'}"><i class="fa fa-envelope"></i></li>
       </ul>
     </div>
     <div class="text-center">
