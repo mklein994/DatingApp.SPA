@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as _ from 'underscore';
 
 import { Message } from '../_models/message';
 import { PaginatedResult, Pagination } from '../_models/pagination';
@@ -43,6 +44,21 @@ export class MessagesComponent implements OnInit {
           this.pagination = res.pagination;
         },
         error => this.alerify.error(error),
+    );
+  }
+
+  deleteMessage(id: number) {
+    this.alerify.confirm(
+      'Are you sure you want to delete the message?',
+      () => this.userService
+        .deleteMessage(id, this.authService.decodedToken.nameid)
+        .subscribe(
+          () => {
+            this.messages.splice(_.findIndex(this.messages, { id: id }), 1);
+            this.alerify.success('Message has been deleted');
+          },
+          error => this.alerify.error('Failed to delete the message'),
+      ),
     );
   }
 
