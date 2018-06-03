@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
+import { tap } from 'rxjs/operators';
 import * as _ from 'underscore';
 
 import { Message } from '../../_models/message';
@@ -30,13 +30,14 @@ export class MemberMessagesComponent implements OnInit {
   loadMessages() {
     const currentUserId = +this.authService.decodedToken.nameid;
     this.userService.getMessageThread(this.authService.decodedToken.nameid, this.userId)
-      .do(messages => {
-        _.each(messages, (message: Message) => {
-          if (message.isRead === false && message.recipientId === currentUserId) {
-            this.userService.markAsRead(currentUserId, message.id);
-          }
-        });
-      })
+      .pipe(
+        tap(messages => {
+          _.each(messages, (message: Message) => {
+            if (message.isRead === false && message.recipientId === currentUserId) {
+              this.userService.markAsRead(currentUserId, message.id);
+            }
+          });
+        }))
       .subscribe(
         messages => this.messages = messages,
         error => this.alertify.error(error),
@@ -45,12 +46,14 @@ export class MemberMessagesComponent implements OnInit {
 
   sendMessage() {
     this.newMessage.recipientId = this.userId;
-    this.userService.sendMessage(this.authService.decodedToken.nameid, this.newMessage).subscribe(
-      message => {
-        this.messages.unshift(message);
-        this.newMessage.content = '';
-      },
-      error => this.alertify.error(error),
+    this.userService
+      .sendMessage(this.authService.decodedToken.nameid, this.newMessage)
+      .subscribe(
+        message => {
+          this.messages.unshift(message);
+          this.newMessage.content = '';
+        },
+        error => this.alertify.error(error),
     );
   }
 

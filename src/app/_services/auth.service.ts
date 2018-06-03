@@ -1,10 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject ,  Observable } from 'rxjs';
-
-
-
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { AuthUser } from '../_models/auth-user';
@@ -32,20 +30,21 @@ export class AuthService {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/json'),
       })
-      .map(user => {
-        if (user && user.tokenString) {
-          localStorage.setItem('token', user.tokenString);
-          localStorage.setItem('user', JSON.stringify(user.user));
-          this.decodedToken = this.jwtHelperService.decodeToken(user.tokenString);
-          this.currentUser = user.user;
-          this.userToken = user.tokenString;
-          if (this.currentUser.photoUrl !== null) {
-            this.changeMemberPhoto(this.currentUser.photoUrl);
-          } else {
-            this.changeMemberPhoto('../../assets/user.png');
+      .pipe(
+        map(user => {
+          if (user && user.tokenString) {
+            localStorage.setItem('token', user.tokenString);
+            localStorage.setItem('user', JSON.stringify(user.user));
+            this.decodedToken = this.jwtHelperService.decodeToken(user.tokenString);
+            this.currentUser = user.user;
+            this.userToken = user.tokenString;
+            if (this.currentUser.photoUrl !== null) {
+              this.changeMemberPhoto(this.currentUser.photoUrl);
+            } else {
+              this.changeMemberPhoto('../../assets/user.png');
+            }
           }
-        }
-      });
+        }));
   }
 
   register(user: User) {

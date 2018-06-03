@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-
-
+import { of, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { Message } from '../_models/message';
 import { AlertifyService } from '../_services/alertify.service';
@@ -28,11 +27,13 @@ export class MessagesResolver implements Resolve<Message[]> {
       this.pageNumber,
       this.pageSize,
       this.messageContainer,
-    ).catch(error => {
-      this.alertify.error('Problem retrieving data');
-      this.router.navigate(['/home']);
-      return Observable.of(null);
-    });
+    ).pipe(
+      catchError(error => {
+        this.alertify.error('Problem retrieving data');
+        this.router.navigate(['/home']);
+        return of(null);
+      }),
+    );
   }
 
 }
