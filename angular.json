@@ -47,6 +47,25 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "ci": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": true,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputPath": "dist",
+              "progress": false
             }
           }
         },
@@ -87,6 +106,12 @@
               "src/assets",
               "src/favicon.ico"
             ]
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromeHeadlessNoSandbox,FirefoxHeadless",
+              "watch": false
+            }
           }
         },
         "lint": {
@@ -98,7 +123,17 @@
             ],
             "exclude": [
               "**/node_modules/**"
-            ]
+            ],
+            "format": "stylish"
+          },
+          "configurations": {
+            "fix": {
+              "fix": true
+            },
+            "ci": {
+              "format": "verbose",
+              "typeCheck": true
+            }
           }
         }
       }
@@ -123,7 +158,17 @@
             ],
             "exclude": [
               "**/node_modules/**"
-            ]
+            ],
+            "format": "stylish"
+          },
+          "configurations": {
+            "fix": {
+              "fix": true
+            },
+            "ci": {
+              "format": "verbose",
+              "typeCheck": true
+            }
           }
         }
       }
