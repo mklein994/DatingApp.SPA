@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import 'rxjs/add/operator/do';
+
 import * as _ from 'underscore';
 
 import { Message } from '../../_models/message';
